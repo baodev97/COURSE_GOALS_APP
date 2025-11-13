@@ -9,15 +9,19 @@ import {
 } from "react-native";
 
 type GoalInputProps = {
-  GoalModalIsVisible: () => void
+  GoalModalIsVisible: () => void,
+  addGoal:(enterGoalText:string)=>void
 };
 type EnterText = string
 
-export default function GoalInput({GoalModalIsVisible} : GoalInputProps) {
+export default function GoalInput({GoalModalIsVisible,addGoal} : GoalInputProps) {
   const [enterGoalText, setEnterGoalText] = useState("");
 
   function handleChangeText(enterText:EnterText) {
     setEnterGoalText(enterText);
+  }
+  function handleAddGoal (){
+    addGoal(enterGoalText);
   }
   console.log(enterGoalText)
   return (
@@ -34,7 +38,7 @@ export default function GoalInput({GoalModalIsVisible} : GoalInputProps) {
             <Pressable style={styles.button} onPress={GoalModalIsVisible}>
               <Text style={styles.text}>Cancel</Text>
             </Pressable>
-            <Pressable style={styles.button}>
+            <Pressable style={styles.button} onPress={handleAddGoal}>
               <Text style={styles.text}>Add Goal</Text>
             </Pressable>
           </View>
