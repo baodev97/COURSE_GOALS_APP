@@ -1,20 +1,20 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
-type CourseGoal = {
+import { StyleSheet, Text, View } from "react-native";
+// type CourseGoal = {
+//   text:string,
+//   id:string
+// }
+// type goalListProps = {
+//     courseGoal:CourseGoal[]
+// }
+type GoalData = {
   text:string,
   id:string
 }
-type goalListProps = {
-    courseGoal:CourseGoal[]
-}
 
-export default function GoalItem({courseGoal}:goalListProps) {
+export default function GoalItem(props:GoalData) {
   return (
     <View style={styles.goalItem}>
-      <FlatList
-        data={courseGoal}
-        renderItem={({ item }) => <Text style={styles.Item}>{item.text}</Text>}
-        keyExtractor={(item) => item.id}
-      />
+      <Text>{props.text}</Text>
     </View>
   );
 }

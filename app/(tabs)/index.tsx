@@ -1,11 +1,11 @@
 import GoalInput from "@/components/GoalInput";
 import GoalItem from "@/components/GoalItem";
 import { useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 type CourseGoal = {
-  text:string,
-  id:string
-}
+  text: string;
+  id: string;
+};
 
 export default function HomeScreen() {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
@@ -19,11 +19,11 @@ export default function HomeScreen() {
   function addGoalHandler(enterGoalText: string) {
     setCourseGoal((currentCourseGoal) => [
       ...currentCourseGoal,
-      { text: enterGoalText, id: Math.random().toString()},
+      { text: enterGoalText, id: Math.random().toString() },
     ]);
-    GoalModalIsVisible()
+    GoalModalIsVisible();
   }
-  console.log(courseGoal)
+  console.log(courseGoal);
   return (
     <View style={styles.appContainer}>
       <View style={styles.AddGoalContainer}>
@@ -31,9 +31,18 @@ export default function HomeScreen() {
           <Text style={styles.text}>ADD NEW GOAL</Text>
         </Pressable>
       </View>
-      <GoalInput GoalModalIsVisible={GoalModalIsVisible} addGoal={addGoalHandler} visible={modalVisible}/>
-
-      <GoalItem courseGoal={courseGoal}/>
+      <GoalInput
+        GoalModalIsVisible={GoalModalIsVisible}
+        addGoal={addGoalHandler}
+        visible={modalVisible}
+      />
+      <View style={styles.goalContainer}>
+        <FlatList<CourseGoal>
+          data={courseGoal}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => <GoalItem text={item.text} id={item.id} />}
+        />
+      </View>
     </View>
   );
 }
@@ -61,5 +70,9 @@ const styles = StyleSheet.create({
   text: {
     color: "#ffffff",
   },
-  
+  goalContainer: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
