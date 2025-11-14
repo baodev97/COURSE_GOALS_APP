@@ -1,7 +1,7 @@
 import GoalInput from "@/components/GoalInput";
 import GoalItem from "@/components/GoalItem";
 import { useState } from "react";
-import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
+import { FlatList, ListRenderItem, Pressable, StyleSheet, Text, View } from "react-native";
 type CourseGoal = {
   text: string;
   id: string;
@@ -23,7 +23,11 @@ export default function HomeScreen() {
     ]);
     GoalModalIsVisible();
   }
+  const renderGoalItem: ListRenderItem<CourseGoal> =(({item})=>{
+    return <GoalItem text={item.text} id={item.id} />
+  })
   console.log(courseGoal);
+
   return (
     <View style={styles.appContainer}>
       <View style={styles.AddGoalContainer}>
@@ -40,7 +44,7 @@ export default function HomeScreen() {
         <FlatList<CourseGoal>
           data={courseGoal}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <GoalItem text={item.text} id={item.id} />}
+          renderItem={renderGoalItem}
         />
       </View>
     </View>
