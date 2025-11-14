@@ -10,11 +10,12 @@ import {
 
 type GoalInputProps = {
   GoalModalIsVisible: () => void,
-  addGoal:(enterGoalText:string)=>void
+  addGoal:(enterGoalText:string)=>void,
+  visible:boolean
 };
 type EnterText = string
 
-export default function GoalInput({GoalModalIsVisible,addGoal} : GoalInputProps) {
+export default function GoalInput({GoalModalIsVisible,addGoal,visible} : GoalInputProps) {
   const [enterGoalText, setEnterGoalText] = useState("");
 
   function handleChangeText(enterText:EnterText) {
@@ -25,7 +26,7 @@ export default function GoalInput({GoalModalIsVisible,addGoal} : GoalInputProps)
   }
   console.log(enterGoalText)
   return (
-    <Modal animationType="slide" transparent={true}>
+    <Modal animationType="slide" transparent={true} visible={visible}>
       <View style={styles.GoalInputContainer}>
         <View style={styles.inputContainer}>
           <TextInput

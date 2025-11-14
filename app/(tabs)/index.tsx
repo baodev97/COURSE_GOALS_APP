@@ -31,11 +31,8 @@ export default function HomeScreen() {
           <Text style={styles.text}>ADD NEW GOAL</Text>
         </Pressable>
       </View>
-      {modalVisible ? (
-        <GoalInput GoalModalIsVisible={GoalModalIsVisible} addGoal={addGoalHandler} />
-      ) : (
-        <></>
-      )}
+      <GoalInput GoalModalIsVisible={GoalModalIsVisible} addGoal={addGoalHandler} visible={modalVisible}/>
+
       <GoalItem courseGoal={courseGoal}/>
     </View>
   );
