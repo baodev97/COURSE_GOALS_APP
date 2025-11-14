@@ -9,19 +9,25 @@ import {
 } from "react-native";
 
 type GoalInputProps = {
-  GoalModalIsVisible: () => void
+  GoalModalIsVisible: () => void,
+  addGoal:(enterGoalText:string)=>void,
+  visible:boolean
 };
 type EnterText = string
 
-export default function GoalInput({GoalModalIsVisible} : GoalInputProps) {
+export default function GoalInput({GoalModalIsVisible,addGoal,visible} : GoalInputProps) {
   const [enterGoalText, setEnterGoalText] = useState("");
 
   function handleChangeText(enterText:EnterText) {
     setEnterGoalText(enterText);
   }
+  function handleAddGoal (){
+    addGoal(enterGoalText);
+    setEnterGoalText("")
+  }
   console.log(enterGoalText)
   return (
-    <Modal animationType="slide" transparent={true}>
+    <Modal animationType="slide" transparent={true} visible={visible}>
       <View style={styles.GoalInputContainer}>
         <View style={styles.inputContainer}>
           <TextInput
@@ -34,7 +40,7 @@ export default function GoalInput({GoalModalIsVisible} : GoalInputProps) {
             <Pressable style={styles.button} onPress={GoalModalIsVisible}>
               <Text style={styles.text}>Cancel</Text>
             </Pressable>
-            <Pressable style={styles.button}>
+            <Pressable style={styles.button} onPress={handleAddGoal}>
               <Text style={styles.text}>Add Goal</Text>
             </Pressable>
           </View>
