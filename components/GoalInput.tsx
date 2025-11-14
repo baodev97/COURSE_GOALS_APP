@@ -23,6 +23,7 @@ export default function GoalInput({GoalModalIsVisible,addGoal,visible} : GoalInp
   }
   function handleAddGoal (){
     addGoal(enterGoalText);
+    setEnterGoalText("")
   }
   console.log(enterGoalText)
   return (

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 // type CourseGoal = {
 //   text:string,
 //   id:string
@@ -8,13 +8,20 @@ import { StyleSheet, Text, View } from "react-native";
 // }
 type GoalData = {
   text:string,
-  id:string
+  id:string,
+  onDeleteGoal:(id:string)=>void
 }
 
 export default function GoalItem(props:GoalData) {
   return (
     <View style={styles.goalItem}>
-      <Text>{props.text}</Text>
+      <Pressable
+        android_ripple={{color:"#210644"}}
+        style={({pressed})=>pressed&& styles.pressedItem}
+        onPress={()=> props.onDeleteGoal(props.id)}
+      >
+        <Text style={styles.Item}>{props.text}</Text>
+      </Pressable>
     </View>
   );
 }
@@ -28,11 +35,14 @@ const styles = StyleSheet.create({
   Item: {
     padding: 4,
     color: "#ffffff",
-    borderRadius: 20,
+    borderRadius: 4,
     borderColor: "#ffffff",
     backgroundColor: "#46DB7F",
     margin: 2,
     justifyContent: "center",
     alignItems: "center",
   },
+  pressedItem:{
+    opacity:0.5
+  }
 });

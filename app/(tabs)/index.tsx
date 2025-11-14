@@ -1,7 +1,14 @@
 import GoalInput from "@/components/GoalInput";
 import GoalItem from "@/components/GoalItem";
 import { useState } from "react";
-import { FlatList, ListRenderItem, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  ListRenderItem,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 type CourseGoal = {
   text: string;
   id: string;
@@ -23,9 +30,16 @@ export default function HomeScreen() {
     ]);
     GoalModalIsVisible();
   }
-  const renderGoalItem: ListRenderItem<CourseGoal> =(({item})=>{
-    return <GoalItem text={item.text} id={item.id} />
-  })
+
+  function deleteGoalHandler(id:string) {
+    setCourseGoal((currentCourseGoal)=>{
+      return currentCourseGoal.filter((goal)=>goal.id !== id)
+    })
+  }
+
+  const renderGoalItem: ListRenderItem<CourseGoal> = ({ item }) => {
+    return <GoalItem text={item.text} id={item.id} onDeleteGoal={deleteGoalHandler} />;
+  };
   console.log(courseGoal);
 
   return (
@@ -45,6 +59,7 @@ export default function HomeScreen() {
           data={courseGoal}
           keyExtractor={(item) => item.id}
           renderItem={renderGoalItem}
+          alwaysBounceVertical={false}
         />
       </View>
     </View>
@@ -75,8 +90,10 @@ const styles = StyleSheet.create({
     color: "#ffffff",
   },
   goalContainer: {
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
+    flex:1,
+    //flexDirection: "column",
+    // justifyContent: "center",
+    // alignItems: "center",
+
   },
 });
